@@ -1,13 +1,10 @@
 /// <reference path="./platforms/ios/bubble-navigation.ios.d.ts" />
 
 import { BubbleNavigationBase, BubbleNavigationItemBase, tabsProperty, tabBackgroundColorProperty } from "./bubble-navigation.common";
-import { Color } from "tns-core-modules/ui/text-base/text-base";
-import { fromFileOrResource } from "tns-core-modules/image-source/image-source";
-import { isFileOrResourcePath } from "tns-core-modules/utils/utils";
-import { ios } from 'tns-core-modules/application';
+import { Application, Utils, View, Color, ImageSource } from '@nativescript/core';
 
-import { layout, View } from 'tns-core-modules/ui/core/view/view';
 
+@NativeClass()
 export class BottomBarControllerDelegate extends NSObject implements UITabBarControllerDelegate {
     public static ObjCProtocols = [UITabBarControllerDelegate];
 
@@ -25,6 +22,7 @@ export class BottomBarControllerDelegate extends NSObject implements UITabBarCon
     }
 }
 
+@NativeClass()
 export class BubbleNavigation extends BubbleNavigationBase {
 
     public _tabBarController: BubbleTabBarController;
@@ -40,8 +38,8 @@ export class BubbleNavigation extends BubbleNavigationBase {
     public createNativeView(): Object {
         this._tabBarController = BubbleTabBarController.new();
         let bottomSafeArea = 0;
-        if (ios.window.safeAreaInsets) {
-            bottomSafeArea = ios.window.safeAreaInsets.bottom;
+        if (Application.ios.window.safeAreaInsets) {
+            bottomSafeArea = Application.ios.window.safeAreaInsets.bottom;
         }
 
         const bottomBarHeight = 50 + bottomSafeArea;
@@ -82,8 +80,8 @@ export class BubbleNavigation extends BubbleNavigationBase {
         itemViewController.tabBarItem = CBTabBarItem.new();
         tab.index = id;
         let icon;
-        if (isFileOrResourcePath(tab.icon)) {
-            icon = fromFileOrResource(tab.icon).ios;
+        if (Utils.isFileOrResourcePath(tab.icon)) {
+            icon = ImageSource.fromFileOrResourceSync(tab.icon).ios;
         } else {
             icon = UIImage.imageNamed(tab.icon);
         }
@@ -106,11 +104,11 @@ export class BubbleNavigation extends BubbleNavigationBase {
     }
 
     public onMeasure(widthMeasureSpec: number, heightMeasureSpec: number): void {
-        const width = layout.getMeasureSpecSize(widthMeasureSpec);
-        const widthMode = layout.getMeasureSpecMode(widthMeasureSpec);
+        const width = Utils.layout.getMeasureSpecSize(widthMeasureSpec);
+        const widthMode = Utils.layout.getMeasureSpecMode(widthMeasureSpec);
 
-        const height = layout.getMeasureSpecSize(heightMeasureSpec);
-        const heightMode = layout.getMeasureSpecMode(heightMeasureSpec);
+        const height = Utils.layout.getMeasureSpecSize(heightMeasureSpec);
+        const heightMode = Utils.layout.getMeasureSpecMode(heightMeasureSpec);
 
         const widthAndState = View.resolveSizeAndState(width, width, widthMode, 0);
         const heightAndState = View.resolveSizeAndState(height, height, heightMode, 0);
@@ -152,6 +150,7 @@ export class BubbleNavigation extends BubbleNavigationBase {
     }
 }
 
+@NativeClass()
 export class BubbleNavigationItem extends BubbleNavigationItemBase {
     nativeView: CBTabBarItem;
 

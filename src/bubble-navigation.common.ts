@@ -1,16 +1,16 @@
-import { View } from 'tns-core-modules/ui/core/view';
-import { EventData } from 'tns-core-modules/data/observable';
-import { Property } from 'tns-core-modules/ui/core/properties';
+import { EventData } from '@nativescript/core/data/observable';
+import { View, Property } from '@nativescript/core';
 
 /**
  * Event interface for tab selected event
  */
+
 export declare interface OnTabSelectedEventData extends EventData {
   name: string;
   position: number;
 }
 
-
+@NativeClass()
 export abstract class BubbleNavigationBase extends View {
 
 
@@ -94,6 +94,7 @@ export const elevationProperty = new Property<BubbleNavigationBase, string>(
 
 elevationProperty.register(BubbleNavigationBase);
 
+@NativeClass()
 export class BubbleNavigationItemBase extends View {
 
   index?: number;

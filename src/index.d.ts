@@ -1,11 +1,14 @@
-import { EventData } from 'tns-core-modules/data/observable';
+import { EventData } from '@nativescript/core/data/observable';
+import { View } from '@nativescript/core';
 import { AddChildFromBuilder, View } from 'tns-core-modules/ui/core/view';
 
+@NativeClass()
 export declare interface OnTabSelectedEventData extends EventData {
  name: string;
  position: number;
 }
 
+@NativeClass()
 export declare abstract class BubbleNavigationBase extends View {
  readonly tabs: BubbleNavigationItemBase[];
  constructor();
@@ -17,6 +20,7 @@ export declare abstract class BubbleNavigationBase extends View {
  protected abstract selectTabNative(index: number): void;
 }
 
+@NativeClass()
 export declare class BubbleNavigationItemBase extends View {
  public title: string;
  public icon: string;
@@ -25,6 +29,7 @@ export declare class BubbleNavigationItemBase extends View {
  constructor(title: string, icon: string, colorActive?: string, colorInactive?: string);
 }
 
+@NativeClass()
 export declare class BubbleNavigation extends BubbleNavigationBase {
  private _delegate;
  constructor();
@@ -32,6 +37,7 @@ export declare class BubbleNavigation extends BubbleNavigationBase {
  protected selectTabNative(index: number): void;
 }
 
+@NativeClass()
 export declare class BubbleNavigationItem extends BubbleNavigationItemBase {
  constructor(title: string, icon: string, colorActive?: string, colorInactive?: string);
 }

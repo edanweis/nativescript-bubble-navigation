@@ -8,13 +8,14 @@ import {
     elevationProperty,
     tabBackgroundColorProperty,
 } from './bubble-navigation.common';
-import { Color } from 'tns-core-modules/color';
-import * as utils from 'tns-core-modules/utils/utils';
+
+import { Utils, Color } from '@nativescript/core';
 
 
 let BubbleNavigationLinearView = com.gauravk.bubblenavigation.BubbleNavigationLinearView;
 let BubbleToggleView = com.gauravk.bubblenavigation.BubbleToggleView;
 
+@NativeClass()
 export class BubbleNavigation extends BubbleNavigationBase {
 
     nativeView: any;
@@ -57,7 +58,7 @@ export class BubbleNavigation extends BubbleNavigationBase {
             (bubbleToggle as any).setId(id);
             bubbleToggle.setBtDuration(300);
 
-            let icon = utils.ad.resources.getDrawableId(tab.icon);
+            let icon = Utils.ad.resources.getDrawableId(tab.icon);
             bubbleToggle.setBtIcon(icon);
             bubbleToggle.setBtTitle(tab.title);
 
@@ -119,6 +120,7 @@ export class BubbleNavigation extends BubbleNavigationBase {
 
 }
 
+@NativeClass()
 export class BubbleNavigationItem extends BubbleNavigationItemBase {
     constructor(title: string, icon: string, colorActive?: string, colorInactive?: string) {
         super(title, icon, colorActive, colorInactive);
